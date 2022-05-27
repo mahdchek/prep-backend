@@ -36,7 +36,7 @@ node("master") {
         }
     }
 
-    node("vm-deploy") {
+    node("vm-deploy-prod") {
         stage("deploy") {
             try {
                 sh "sudo docker stop backend"
