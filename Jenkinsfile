@@ -5,8 +5,9 @@ node("master") {
     }
 
     def commitHash = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
-    def branch = env.BRANCH_NAME
-    println $branch
+    def branchName = "${env.BRANCH_NAME}"
+
+    println branchName
 
     println commitHash
     stage("unit tests") {
