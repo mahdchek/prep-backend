@@ -1,9 +1,13 @@
 node("master") {
 
     stage("checkout") {
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mahdchek/prep-backend']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/master'], [name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mahdchek/prep-backend']]])
     }
+
     def commitHash = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
+    def branchName = env.BRANCH_NAME
+
+
     println commitHash
     stage("unit tests") {
         sh "chmod 777 ./mvnw"
@@ -36,7 +40,12 @@ node("master") {
         }
     }
 
-    node("vm-deploy") {
+
+    def target = "vm-deploy";
+    if (branchName.equals("main"))  target = "vm-deploy-prod"
+    println target
+
+    node(target) {
         stage("deploy") {
             try {
                 sh "sudo docker stop backend"
