@@ -27,12 +27,12 @@ node("master") {
         stage("build image") {
             unstash 'livrable-backend'
             unstash 'Dockerfile'
-            sh "sudo docker build -t backend ."
+            sh "sudo docker build -t backend:$commitHash ."
         }
         stage("push image") {
             sh "sudo aws ecr-public get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin public.ecr.aws/v0r2h1q6"
-            sh "sudo docker tag backend:latest public.ecr.aws/v0r2h1q6/backend:latest"
-            sh "sudo docker push public.ecr.aws/v0r2h1q6/backend:latest"
+            sh "sudo docker tag backend:$commitHash public.ecr.aws/v0r2h1q6/backend:$commitHash"
+            sh "sudo docker push public.ecr.aws/v0r2h1q6/backend:$commitHash"
         }
     }
 
@@ -44,7 +44,7 @@ node("master") {
             } catch (Exception e) {
                 println "aucun cntenur n'est lancé"
             }
-            sh "sudo docker run --name backend -d -p 8080:8080 public.ecr.aws/v0r2h1q6/backend"
+            sh "sudo docker run --name backend -d -p 8080:8080 public.ecr.aws/v0r2h1q6/backend:$commitHash"
         }
     }
 }

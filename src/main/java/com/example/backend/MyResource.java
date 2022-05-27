@@ -21,8 +21,8 @@ public class MyResource {
     @GetMapping("hello")
     public Personne hello() {
         return Personne.builder()
-                .nom("integration v.3")
-                .prenom("integration v.3")
+                .nom("integration v.4")
+                .prenom("integration v.4")
                 .build();
     }
 
