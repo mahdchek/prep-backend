@@ -1,9 +1,10 @@
 node("master") {
-    def commitHash = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
-    println commitHash
+
     stage("checkout") {
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mahdchek/prep-backend']]])
     }
+    def commitHash = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
+    println commitHash
     stage("unit tests") {
         sh "chmod 777 ./mvnw"
         sh "./mvnw test"
