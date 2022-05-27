@@ -7,7 +7,6 @@ node("master") {
     def commitHash = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
     def branchName = env.BRANCH_NAME
 
-    println branchName
 
     println commitHash
     stage("unit tests") {
@@ -42,12 +41,11 @@ node("master") {
     }
 
 
-    println $branch
     def target = "vm-deploy";
-    if ($branch.equals("main"))  target = "vm-deploy-prod"
-    println $target
+    if (branchName.equals("main"))  target = "vm-deploy-prod"
+    println target
 
-    node($target) {
+    node(target) {
         stage("deploy") {
             try {
                 sh "sudo docker stop backend"
