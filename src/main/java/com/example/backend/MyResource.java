@@ -1,5 +1,6 @@
 package com.example.backend;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MyResource {
 
     private final ApplicationContext context;
+
 
     public MyResource(ApplicationContext context) {
         this.context = context;
