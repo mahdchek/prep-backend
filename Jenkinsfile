@@ -1,6 +1,6 @@
 node{
     stage("checkout"){
-        println "checkout stage"
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mahdchek/prep-backend']]])
     }
     stage("build"){
         println "build stage"
