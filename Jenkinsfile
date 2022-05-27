@@ -34,8 +34,9 @@ node {
         }
     }
 
-
-    stage("deploy") {
-        println "deploy stage"
+    node("vm-deploy"){
+        stage("deploy") {
+           sh "sudo docker run -d -p 8080:8080 public.ecr.aws/v0r2h1q6/backend"
+        }
     }
 }
