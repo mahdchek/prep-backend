@@ -27,6 +27,11 @@ node {
             unstash 'Dockerfile'
             sh "sudo docker build -t backend ."
         }
+        stage("push image"){
+            sh "aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/v0r2h1q6"
+            sh "docker tag backend:latest public.ecr.aws/v0r2h1q6/backend:latest"
+            sh "docker push public.ecr.aws/v0r2h1q6/backend:latest"
+        }
     }
 
 
