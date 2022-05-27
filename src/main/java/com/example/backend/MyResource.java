@@ -25,8 +25,8 @@ public class MyResource {
     @GetMapping("hello")
     public Personne hello() {
         return Personne.builder()
-                .nom("integration v.4")
-                .prenom("integration v.4")
+                .nom("integration v.5")
+                .prenom("integration v.5")
                 .env(env)
                 .build();
     }
