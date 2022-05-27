@@ -1,5 +1,6 @@
 package com.example.backend;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Profile("prod")
 public class MyResourceProd {
+
+    @Value("${env}")
+    String env;
 
     private final ApplicationContext context;
 
@@ -20,6 +24,7 @@ public class MyResourceProd {
         return Personne.builder()
                 .nom("production")
                 .prenom("production")
+                .env(env)
                 .build();
     }
 
