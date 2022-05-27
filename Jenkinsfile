@@ -36,7 +36,13 @@ node {
 
     node("vm-deploy"){
         stage("deploy") {
-           sh "sudo docker run -d -p 8080:8080 public.ecr.aws/v0r2h1q6/backend"
+            try{
+               sh "sudo docker stop backend"
+               sh "sudo docker rm backend"
+            }catch(Exception e){
+                println "aucun cntenur n'est lancé"
+            }
+           sh "sudo docker run --name backend -d -p 8080:8080 public.ecr.aws/v0r2h1q6/backend"
         }
     }
 }
