@@ -40,7 +40,11 @@ node("master") {
     }
 
 
-    def target = $branch == "main" ? "vm-deploy-prod" : "vm-deploy"
+    println $branch
+    def target = "vm-deploy";
+    if ($branch.equals("main"))  target = "vm-deploy-prod"
+    println $target
+
     node($target) {
         stage("deploy") {
             try {
