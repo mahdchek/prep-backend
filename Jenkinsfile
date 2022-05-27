@@ -1,4 +1,6 @@
 node("master") {
+    def commitHash = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
+    println commitHash
     stage("checkout") {
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mahdchek/prep-backend']]])
     }
