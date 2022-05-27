@@ -22,8 +22,8 @@ public class MyResourceProd {
     @GetMapping("hello")
     public Personne hello() {
         return Personne.builder()
-                .nom("production")
-                .prenom("production")
+                .nom("production v1.0")
+                .prenom("production v1.0")
                 .env(env)
                 .build();
     }
