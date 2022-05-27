@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins
+    user: root
+    ports:
+      - "11000:8080"
+    volumes:
+      - jenkins_data/:/var/jenkins_home
+  sonar:
+    container_name: sonar
+    image: sonarqube:7.8-community
+    ports:
+      - "11001:9000"
+  keycloak:
+    image: jboss/keycloak
+    container_name: keycloak
+    ports:
+      - "8074:8080"
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - TZ=Europe/Paris
+#      - KEYCLOAK_IMPORT=/import/ecom.json
+#    volumes:
+#      - ./realms/ecom.json:/import/ecom.json
+#  fake-smtp:
+#    image: munkyboy/fakesmtp
+#    container_name: fake-smtp
+#    ports:
+#      - "25:25"
+#    volumes:
+#      - ./mail:/var/mail
+
+
+
+volumes:
+  jenkins_data:
+  sonarqube_data:
+
