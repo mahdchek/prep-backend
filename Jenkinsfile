@@ -3,7 +3,7 @@ node{
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mahdchek/prep-backend']]])
     }
     stage("build"){
-        println "build stage"
+        sh "./mvnw clean build -DskipTests"
     }
     stage("deploy"){
         println "deploy stage"
