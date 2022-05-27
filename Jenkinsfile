@@ -25,7 +25,7 @@ node {
         stage("build image") {
             unstash 'livrable-backend'
             unstash 'Dockerfile'
-            docker.build("backend")
+            sh "sudo docker build -t backend ."
         }
     }
 
