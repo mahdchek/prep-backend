@@ -9,7 +9,7 @@ node{
     }
 
     stage("build"){
-        sh "./mvnw clean build -DskipTests"
+        sh "./mvnw clean package -DskipTests"
     }
     stage("deploy"){
         println "deploy stage"
