@@ -1,4 +1,3 @@
-node("Maître") {
     stage("checkout") {
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mahdchek/prep-backend']]])
     }
@@ -44,4 +43,3 @@ node("Maître") {
            sh "sudo docker run --name backend -d -p 8080:8080 public.ecr.aws/v0r2h1q6/backend"
         }
     }
-}
