@@ -1,3 +1,4 @@
+pipeline {
     stage("checkout") {
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mahdchek/prep-backend']]])
     }
@@ -25,21 +26,22 @@
             unstash 'Dockerfile'
             sh "sudo docker build -t backend ."
         }
-        stage("push image"){
+        stage("push image") {
             sh "sudo aws ecr-public get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin public.ecr.aws/v0r2h1q6"
             sh "sudo docker tag backend:latest public.ecr.aws/v0r2h1q6/backend:latest"
             sh "sudo docker push public.ecr.aws/v0r2h1q6/backend:latest"
         }
     }
 
-    node("vm-deploy"){
+    node("vm-deploy") {
         stage("deploy") {
-            try{
-               sh "sudo docker stop backend"
-               sh "sudo docker rm backend"
-            }catch(Exception e){
+            try {
+                sh "sudo docker stop backend"
+                sh "sudo docker rm backend"
+            } catch (Exception e) {
                 println "aucun cntenur n'est lancé"
             }
-           sh "sudo docker run --name backend -d -p 8080:8080 public.ecr.aws/v0r2h1q6/backend"
+            sh "sudo docker run --name backend -d -p 8080:8080 public.ecr.aws/v0r2h1q6/backend"
         }
     }
+}
