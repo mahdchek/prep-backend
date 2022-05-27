@@ -5,7 +5,7 @@ node("master") {
     }
 
     def commitHash = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
-    def branchName = "${env.BRANCH_NAME}"
+    def branchName = env.BRANCH_NAME
 
     println branchName
 
