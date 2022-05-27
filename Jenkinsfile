@@ -19,6 +19,14 @@ node{
                 "  -Dsonar.login=2fb63af68c4fe6720a99d47f9f536241562a17e9"
     }
 
+    stage("build image"){
+        def customImage = docker.build("backend")
+
+        customImage.inside {
+            sh 'ls /'
+        }
+    }
+
     stage("deploy"){
         println "deploy stage"
     }
