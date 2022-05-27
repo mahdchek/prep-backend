@@ -22,7 +22,7 @@ public class MyResource {
     public Personne hello() {
         return Personne.builder()
                 .nom("integration v.2")
-                .prenom("integration")
+                .prenom("integration v.2")
                 .build();
     }
 
