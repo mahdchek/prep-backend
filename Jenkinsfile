@@ -33,7 +33,6 @@ node {
             sh "sudo docker push public.ecr.aws/v0r2h1q6/backend:latest"
         }
     }
-
     node("vm-deploy"){
         stage("deploy") {
             try{
