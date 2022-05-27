@@ -1,7 +1,7 @@
 node("master") {
 
     stage("checkout") {
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mahdchek/prep-backend']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mahdchek/prep-backend']]])
     }
     def commitHash = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
     println commitHash
